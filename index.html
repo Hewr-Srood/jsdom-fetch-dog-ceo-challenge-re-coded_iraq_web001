@@ -1,64 +1,59 @@
-console.log("%c HI", "color: firebrick");
-
-document.addEventListener("DOMContentLoaded", function () {
-  const imgUrl = "https://dog.ceo/api/breeds/image/random/4";
-  const dogImageContainer = document.getElementById("dog-image-container");
-  const breedUrl = "https://dog.ceo/api/breeds/list/all";
-  let dogBreedsContainer = document.querySelector("#dog-breeds");
-  const breedDropdown = document.getElementById("breed-dropdown");
-
-  fetch(imgUrl)
-    .then((response) => {
-      return response.json();
-    })
-    .then((json) => {
-      console.log(json);
-      let dogImg = json.message;
-      dogImg.forEach(createDogImg);
-    });
-  fetch(breedUrl)
-    .then((response) => {
-      return response.json();
-    })
-    .then((json) => {
-      let dogBreeds = Object.keys(json.message);
-      dogBreeds.forEach(createBreedLi);
-    });
-
-  dogBreedsContainer.addEventListener("click", function (event) {
-    if (event.target.style.color != "red") {
-      event.target.style.color = "red";
-    }
-    else {
-      event.target.style.color = "black";
-    }
-  });
-
-  breedDropdown.addEventListener("change", (e) => {
-    let breedLis = document.getElementsByClassName("breed-list-item");
-    let select = e.target.value;
-    for (let li of breedLis) {
-      li.style.display = "block";
-    }
-    for (let li of breedLis) {
-      if (select === "all") {
-        li.style.display = "block";
-      } else {
-        li.innerText.charAt(0) === select
-          ? (li.style.display = "block")
-          : (li.style.display = "none");
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Intro to AJAX Practice Tasks</title>
+    <script src="src/index.js" charset="utf-8"></script>
+    <style>
+      #dog-image-container {
+        display: flex;
+        flex-wrap: wrap;
       }
-    }
-  });
+      #dog-image-container img {
+        width: 50%;
+        height: 350px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Dog CEO</h1>
 
-  function createDogImg(url) {
-    dogImageContainer.insertAdjacentHTML("beforeend", `<img src="${url}">`);
-  }
+    <div id="dog-image-container">
+      <!-- images here -->
+    </div>
 
-  function createBreedLi(breed) {
-    dogBreedsContainer.insertAdjacentHTML(
-      "beforeend",
-      `<li class="breed-list-item"> ${breed}</li>`
-    );
-  }
-});
+    <hr />
+    <label for="select-breed">Filter Breeds That Start with:</label>
+    <select id="breed-dropdown" name="select-breed">
+      <option value="all">all</option>
+      <option value="a">a</option>
+      <option value="b">b</option>
+      <option value="c">c</option>
+      <option value="d">d</option>
+      <option value="e">e</option>
+      <option value="f">f</option>
+      <option value="g">g</option>
+      <option value="h">h</option>
+      <option value="i">i</option>
+      <option value="j">j</option>
+      <option value="k">k</option>
+      <option value="l">l</option>
+      <option value="m">m</option>
+      <option value="n">n</option>
+      <option value="o">o</option>
+      <option value="p">p</option>
+      <option value="q">q</option>
+      <option value="r">r</option>
+      <option value="s">s</option>
+      <option value="t">t</option>
+      <option value="u">u</option>
+      <option value="v">v</option>
+      <option value="w">w</option>
+      <option value="x">x</option>
+      <option value="y">y</option>
+      <option value="z">z</option>
+    </select>
+
+    <ul id="dog-breeds"></ul>
+  </body>
+</html>
